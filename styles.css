@@ -767,6 +767,46 @@ h3 {
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
 }
 
+.application-flow {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 16px;
+  width: 100%;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(113, 231, 212, 0.14);
+}
+
+.application-flow span {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(228, 189, 107, 0.42);
+  border-radius: 999px;
+  color: var(--champagne);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.application-flow strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--ink);
+  font-size: 18px;
+}
+
+.application-flow p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.application-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 2px;
+}
+
 .contact-panel label {
   display: grid;
   width: 100%;
