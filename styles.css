@@ -25,6 +25,10 @@ html {
   scroll-behavior: smooth;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   background:
@@ -788,7 +792,8 @@ h3 {
   width: 100%;
 }
 
-.application-fields label:nth-child(3) {
+.application-fields label:nth-child(3),
+.application-fields label:nth-child(4) {
   grid-column: 1 / -1;
 }
 
@@ -801,6 +806,13 @@ h3 {
   font-weight: 850;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.contact-panel label span {
+  color: rgba(244, 242, 236, 0.58);
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  text-transform: none;
 }
 
 .call-option {
@@ -818,6 +830,12 @@ h3 {
   letter-spacing: 0 !important;
   line-height: 1.35;
   text-transform: none !important;
+}
+
+.call-step[hidden],
+.call-option[hidden],
+.button[hidden] {
+  display: none !important;
 }
 
 .call-option input {

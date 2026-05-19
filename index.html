@@ -387,14 +387,19 @@
               <input name="entry.1105904814" type="text" autocomplete="name" required />
             </label>
             <label>
-              Empresa
-              <input name="entry.2023507803" type="text" autocomplete="organization" required />
-            </label>
-            <label>
               Email
               <input name="entry.228976168" type="email" autocomplete="email" required />
             </label>
+            <label>
+              LinkedIn
+              <input data-linkedin-field type="url" autocomplete="url" placeholder="https://linkedin.com/in/..." required />
+            </label>
+            <label>
+              Website <span>opcional</span>
+              <input data-website-field type="url" autocomplete="url" placeholder="https://..." />
+            </label>
           </div>
+          <input data-public-profile-field name="entry.2023507803" type="hidden" />
           <input
             data-call-interest
             name="entry.1511199993"
@@ -411,7 +416,7 @@
             <input
               data-call-checkbox
               type="checkbox"
-              value="Sí, quiero que me contacten para agendar una llamada"
+              value="Sí, quiero que me contacten para agendar"
             />
             <span>Sí, quiero que me contacten para coordinar una llamada.</span>
           </label>
@@ -438,6 +443,9 @@
         const callStep = applicationForm.querySelectorAll("[data-form-step='call']");
         const callInterest = applicationForm.querySelector("[data-call-interest]");
         const callCheckbox = applicationForm.querySelector("[data-call-checkbox]");
+        const linkedinField = applicationForm.querySelector("[data-linkedin-field]");
+        const websiteField = applicationForm.querySelector("[data-website-field]");
+        const publicProfileField = applicationForm.querySelector("[data-public-profile-field]");
         const status = applicationForm.querySelector("[data-form-status]");
         const submitButton = applicationForm.querySelector("[data-submit-button]");
         const backButton = applicationForm.querySelector("[data-back-button]");
@@ -475,6 +483,11 @@
             callInterest.value = callCheckbox.checked
               ? callCheckbox.value
               : "Prefiere que respondamos primero";
+          }
+          if (publicProfileField) {
+            const linkedin = linkedinField ? linkedinField.value.trim() : "";
+            const website = websiteField ? websiteField.value.trim() : "";
+            publicProfileField.value = `LinkedIn: ${linkedin || "No informado"}${website ? ` | Website: ${website}` : ""}`;
           }
           const status = applicationForm.querySelector("[data-form-status]");
           const button = applicationForm.querySelector("button[type='submit']");
