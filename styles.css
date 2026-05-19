@@ -62,24 +62,14 @@ a {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-size: 13px;
+  width: 156px;
+  height: 36px;
 }
 
-.brand-mark {
-  display: inline-grid;
-  width: 38px;
-  height: 38px;
-  place-items: center;
-  border: 1px solid rgba(113, 231, 212, 0.48);
-  border-radius: 4px;
-  background: rgba(113, 231, 212, 0.08);
-  color: var(--teal);
-  font-size: 13px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+.brand img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 nav {
