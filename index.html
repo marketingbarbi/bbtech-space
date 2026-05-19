@@ -406,23 +406,16 @@
             type="hidden"
             value="Prefiere que respondamos primero"
           />
-          <div class="call-step" data-form-step="call" hidden>
-            <strong>¿Querés sumar una llamada de claridad?</strong>
-            <p>
-              Si tu interés es más urgente, lo marcamos como prioridad para revisar antes tu caso y proponerte horarios.
-            </p>
-          </div>
-          <label class="call-option" data-form-step="call" hidden>
+          <label class="call-option">
             <input
               data-call-checkbox
               type="checkbox"
               value="Sí, quiero que me contacten para agendar"
             />
-            <span>Sí, quiero que me contacten para coordinar una llamada.</span>
+            <span>También quiero que me contacten para coordinar una llamada si ven potencial.</span>
           </label>
           <div class="application-actions">
-            <button class="button primary" type="submit" data-submit-button>Continuar</button>
-            <button class="button secondary" type="button" data-back-button hidden>Volver</button>
+            <button class="button primary" type="submit" data-submit-button>Enviar solicitud</button>
           </div>
           <p data-form-status>Tomamos pocos casos a la vez. Si no vemos encaje, preferimos decirlo claro antes de hacerte perder tiempo.</p>
         </form>
@@ -439,46 +432,13 @@
     <script>
       const applicationForm = document.querySelector("[data-application-form]");
       if (applicationForm) {
-        const detailsStep = applicationForm.querySelectorAll("[data-form-step='details']");
-        const callStep = applicationForm.querySelectorAll("[data-form-step='call']");
         const callInterest = applicationForm.querySelector("[data-call-interest]");
         const callCheckbox = applicationForm.querySelector("[data-call-checkbox]");
         const linkedinField = applicationForm.querySelector("[data-linkedin-field]");
         const websiteField = applicationForm.querySelector("[data-website-field]");
         const publicProfileField = applicationForm.querySelector("[data-public-profile-field]");
-        const status = applicationForm.querySelector("[data-form-status]");
-        const submitButton = applicationForm.querySelector("[data-submit-button]");
-        const backButton = applicationForm.querySelector("[data-back-button]");
-        let currentStep = "details";
-
-        const setStep = (step) => {
-          currentStep = step;
-          detailsStep.forEach((element) => {
-            element.hidden = step !== "details";
-          });
-          callStep.forEach((element) => {
-            element.hidden = step !== "call";
-          });
-          if (submitButton) submitButton.textContent = step === "details" ? "Continuar" : "Enviar solicitud";
-          if (backButton) backButton.hidden = step !== "call";
-          if (status) {
-            status.textContent = step === "details"
-              ? "Tomamos pocos casos a la vez. Si no vemos encaje, preferimos decirlo claro antes de hacerte perder tiempo."
-              : "Elegí si querés que la evaluación incluya una posible llamada de claridad.";
-          }
-        };
-
-        if (backButton) {
-          backButton.addEventListener("click", () => setStep("details"));
-        }
 
         applicationForm.addEventListener("submit", (event) => {
-          if (currentStep === "details") {
-            event.preventDefault();
-            if (applicationForm.checkValidity()) setStep("call");
-            return;
-          }
-
           if (callInterest && callCheckbox) {
             callInterest.value = callCheckbox.checked
               ? callCheckbox.value
@@ -494,9 +454,8 @@
           if (button) button.textContent = "Enviando...";
           window.setTimeout(() => {
             applicationForm.reset();
-            setStep("details");
             if (status) status.textContent = "Recibimos tu solicitud. Te vamos a responder si vemos un ángulo claro para avanzar.";
-            if (button) button.textContent = "Continuar";
+            if (button) button.textContent = "Enviar solicitud";
           }, 900);
         });
       }
