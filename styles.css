@@ -835,12 +835,24 @@ h3 {
 
 footer {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 28px clamp(18px, 6vw, 88px);
+  padding: 24px clamp(18px, 6vw, 88px);
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 14px;
+}
+
+.footer-brand {
+  display: inline-flex;
+  width: 150px;
+}
+
+.footer-brand img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 @keyframes slowDrift {
@@ -870,11 +882,6 @@ footer {
     scroll-behavior: auto !important;
     transition-duration: 0.001ms !important;
   }
-}
-
-footer span:first-child {
-  color: var(--ink);
-  font-weight: 850;
 }
 
 @media (max-width: 900px) {
