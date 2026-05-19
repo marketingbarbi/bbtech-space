@@ -365,27 +365,46 @@
             claro para trabajar con criterio, avanzamos con una llamada breve y una propuesta concreta.
           </p>
         </div>
-        <div class="contact-panel">
+        <form
+          class="contact-panel application-form"
+          action="https://docs.google.com/forms/d/e/1FAIpQLScCjQhOyqBbi6d3_liWC-tSKbxpwfVGJSZrqzKf_dkktg60EA/formResponse"
+          method="post"
+          target="application_sink"
+          data-application-form
+        >
+          <input type="hidden" name="fvv" value="1" />
+          <input type="hidden" name="pageHistory" value="0" />
+          <input type="hidden" name="fbzx" value="-8849757861305275706" />
           <p class="application-eyebrow">Evaluación inicial</p>
           <h3>¿Tu perfil está listo para abrir conversaciones que valen la pena?</h3>
           <p>
-            Analizamos si tu posicionamiento, oferta y mercado tienen suficiente claridad para activar relaciones
-            comerciales de alto valor sin quemar reputación con mensajes genéricos.
+            Dejanos tus datos mínimos. Nosotros revisamos tu perfil y tu mercado antes de proponerte cualquier
+            acción. Si vemos potencial real, te respondemos con próximos pasos.
           </p>
-          <ul class="application-points">
-            <li>Perfil y autoridad percibida</li>
-            <li>Oferta, ticket y tipo de cliente ideal</li>
-            <li>Potencial real para abrir oportunidades B2B</li>
-          </ul>
+          <div class="application-fields">
+            <label>
+              Nombre
+              <input name="entry.1105904814" type="text" autocomplete="name" required />
+            </label>
+            <label>
+              Empresa
+              <input name="entry.2023507803" type="text" autocomplete="organization" required />
+            </label>
+            <label>
+              Email
+              <input name="entry.228976168" type="email" autocomplete="email" required />
+            </label>
+          </div>
+          <label class="call-option">
+            <input
+              name="entry.1511199993"
+              type="checkbox"
+              value="Sí, quiero que me contacten para agendar"
+            />
+            <span>También quiero que me contacten para coordinar una llamada.</span>
+          </label>
           <div class="application-actions">
-            <a
-              class="button primary"
-              href="https://docs.google.com/forms/d/e/1FAIpQLSeWm0PoqG_XFrp0Wc9_iA3wSR3Ynt4TZOrucFXrGM4fHhL6Jw/viewform"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Completar aplicación
-            </a>
+            <button class="button primary" type="submit">Solicitar evaluación</button>
             <a
               class="button secondary"
               href="mailto:barbi@bbtech.space?subject=Quiero%20agendar%20una%20llamada%20BBTech&body=Hola%20Barbi%2C%20complet%C3%A9%20o%20quiero%20completar%20la%20aplicaci%C3%B3n%20y%20me%20gustar%C3%ADa%20agendar%20una%20llamada."
@@ -393,8 +412,9 @@
               Pedir llamada
             </a>
           </div>
-          <p>Tomamos pocos casos a la vez. Si no vemos encaje, preferimos decirlo claro antes de hacerte perder tiempo.</p>
-        </div>
+          <p data-form-status>Tomamos pocos casos a la vez. Si no vemos encaje, preferimos decirlo claro antes de hacerte perder tiempo.</p>
+        </form>
+        <iframe class="form-sink" name="application_sink" title="Estado de aplicación"></iframe>
       </section>
     </main>
 
@@ -404,5 +424,20 @@
       </a>
       <span>Prospección y relaciones comerciales para proyectos B2B.</span>
     </footer>
+    <script>
+      const applicationForm = document.querySelector("[data-application-form]");
+      if (applicationForm) {
+        applicationForm.addEventListener("submit", () => {
+          const status = applicationForm.querySelector("[data-form-status]");
+          const button = applicationForm.querySelector("button[type='submit']");
+          if (button) button.textContent = "Enviando...";
+          window.setTimeout(() => {
+            if (status) status.textContent = "Recibimos tu solicitud. Te vamos a responder si vemos un ángulo claro para avanzar.";
+            if (button) button.textContent = "Solicitud enviada";
+            applicationForm.reset();
+          }, 900);
+        });
+      }
+    </script>
   </body>
 </html>

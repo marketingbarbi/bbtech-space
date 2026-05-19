@@ -220,6 +220,8 @@ h3 {
   padding: 12px 18px;
   border: 1px solid var(--line);
   border-radius: 5px;
+  cursor: pointer;
+  font: inherit;
   font-weight: 720;
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
@@ -779,30 +781,15 @@ h3 {
   line-height: 1.08;
 }
 
-.application-points {
+.application-fields {
   display: grid;
-  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
   width: 100%;
-  padding: 0;
-  margin: 2px 0 4px;
-  list-style: none;
-  color: rgba(244, 242, 236, 0.82);
 }
 
-.application-points li {
-  position: relative;
-  padding-left: 22px;
-}
-
-.application-points li::before {
-  content: "";
-  position: absolute;
-  top: 0.72em;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: var(--teal);
+.application-fields label:nth-child(3) {
+  grid-column: 1 / -1;
 }
 
 .contact-panel label {
@@ -816,6 +803,30 @@ h3 {
   text-transform: uppercase;
 }
 
+.call-option {
+  display: flex !important;
+  grid-template-columns: none;
+  align-items: center;
+  gap: 12px !important;
+  padding: 14px;
+  border: 1px solid rgba(113, 231, 212, 0.18);
+  border-radius: 6px;
+  background: rgba(113, 231, 212, 0.055);
+  color: rgba(244, 242, 236, 0.84) !important;
+  font-size: 14px !important;
+  font-weight: 650 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.35;
+  text-transform: none !important;
+}
+
+.call-option input {
+  flex: 0 0 auto;
+  width: 18px !important;
+  height: 18px;
+  accent-color: var(--teal);
+}
+
 .contact-panel input,
 .contact-panel textarea {
   width: 100%;
@@ -827,6 +838,10 @@ h3 {
   letter-spacing: 0;
   padding: 12px 13px;
   resize: vertical;
+}
+
+.form-sink {
+  display: none;
 }
 
 .contact-panel input:focus,
@@ -966,5 +981,9 @@ footer {
   .hero-actions,
   .contact-panel {
     width: 100%;
+  }
+
+  .application-fields {
+    grid-template-columns: 1fr;
   }
 }
