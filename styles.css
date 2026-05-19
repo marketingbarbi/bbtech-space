@@ -827,6 +827,27 @@ h3 {
   accent-color: var(--teal);
 }
 
+.call-step {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  padding: 18px;
+  border: 1px solid rgba(228, 189, 107, 0.2);
+  border-radius: 6px;
+  background:
+    linear-gradient(135deg, rgba(228, 189, 107, 0.075), rgba(113, 231, 212, 0.045)),
+    rgba(5, 6, 7, 0.24);
+}
+
+.call-step strong {
+  color: var(--ink);
+  font-size: 18px;
+}
+
+.call-step p {
+  margin: 0;
+}
+
 .contact-panel input,
 .contact-panel textarea {
   width: 100%;

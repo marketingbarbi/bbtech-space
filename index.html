@@ -381,7 +381,7 @@
             Dejanos tus datos mínimos. Nosotros revisamos tu perfil y tu mercado antes de proponerte cualquier
             acción. Si vemos potencial real, te respondemos con próximos pasos.
           </p>
-          <div class="application-fields">
+          <div class="application-fields" data-form-step="details">
             <label>
               Nombre
               <input name="entry.1105904814" type="text" autocomplete="name" required />
@@ -395,22 +395,29 @@
               <input name="entry.228976168" type="email" autocomplete="email" required />
             </label>
           </div>
-          <label class="call-option">
+          <input
+            data-call-interest
+            name="entry.1511199993"
+            type="hidden"
+            value="Prefiere que respondamos primero"
+          />
+          <div class="call-step" data-form-step="call" hidden>
+            <strong>¿Querés sumar una llamada de claridad?</strong>
+            <p>
+              Si tu interés es más urgente, lo marcamos como prioridad para revisar antes tu caso y proponerte horarios.
+            </p>
+          </div>
+          <label class="call-option" data-form-step="call" hidden>
             <input
-              name="entry.1511199993"
+              data-call-checkbox
               type="checkbox"
-              value="Sí, quiero que me contacten para agendar"
+              value="Sí, quiero que me contacten para agendar una llamada"
             />
-            <span>También quiero que me contacten para coordinar una llamada.</span>
+            <span>Sí, quiero que me contacten para coordinar una llamada.</span>
           </label>
           <div class="application-actions">
-            <button class="button primary" type="submit">Solicitar evaluación</button>
-            <a
-              class="button secondary"
-              href="mailto:barbi@bbtech.space?subject=Quiero%20agendar%20una%20llamada%20BBTech&body=Hola%20Barbi%2C%20complet%C3%A9%20o%20quiero%20completar%20la%20aplicaci%C3%B3n%20y%20me%20gustar%C3%ADa%20agendar%20una%20llamada."
-            >
-              Pedir llamada
-            </a>
+            <button class="button primary" type="submit" data-submit-button>Continuar</button>
+            <button class="button secondary" type="button" data-back-button hidden>Volver</button>
           </div>
           <p data-form-status>Tomamos pocos casos a la vez. Si no vemos encaje, preferimos decirlo claro antes de hacerte perder tiempo.</p>
         </form>
@@ -427,14 +434,56 @@
     <script>
       const applicationForm = document.querySelector("[data-application-form]");
       if (applicationForm) {
-        applicationForm.addEventListener("submit", () => {
+        const detailsStep = applicationForm.querySelectorAll("[data-form-step='details']");
+        const callStep = applicationForm.querySelectorAll("[data-form-step='call']");
+        const callInterest = applicationForm.querySelector("[data-call-interest]");
+        const callCheckbox = applicationForm.querySelector("[data-call-checkbox]");
+        const status = applicationForm.querySelector("[data-form-status]");
+        const submitButton = applicationForm.querySelector("[data-submit-button]");
+        const backButton = applicationForm.querySelector("[data-back-button]");
+        let currentStep = "details";
+
+        const setStep = (step) => {
+          currentStep = step;
+          detailsStep.forEach((element) => {
+            element.hidden = step !== "details";
+          });
+          callStep.forEach((element) => {
+            element.hidden = step !== "call";
+          });
+          if (submitButton) submitButton.textContent = step === "details" ? "Continuar" : "Enviar solicitud";
+          if (backButton) backButton.hidden = step !== "call";
+          if (status) {
+            status.textContent = step === "details"
+              ? "Tomamos pocos casos a la vez. Si no vemos encaje, preferimos decirlo claro antes de hacerte perder tiempo."
+              : "Elegí si querés que la evaluación incluya una posible llamada de claridad.";
+          }
+        };
+
+        if (backButton) {
+          backButton.addEventListener("click", () => setStep("details"));
+        }
+
+        applicationForm.addEventListener("submit", (event) => {
+          if (currentStep === "details") {
+            event.preventDefault();
+            if (applicationForm.checkValidity()) setStep("call");
+            return;
+          }
+
+          if (callInterest && callCheckbox) {
+            callInterest.value = callCheckbox.checked
+              ? callCheckbox.value
+              : "Prefiere que respondamos primero";
+          }
           const status = applicationForm.querySelector("[data-form-status]");
           const button = applicationForm.querySelector("button[type='submit']");
           if (button) button.textContent = "Enviando...";
           window.setTimeout(() => {
-            if (status) status.textContent = "Recibimos tu solicitud. Te vamos a responder si vemos un ángulo claro para avanzar.";
-            if (button) button.textContent = "Solicitud enviada";
             applicationForm.reset();
+            setStep("details");
+            if (status) status.textContent = "Recibimos tu solicitud. Te vamos a responder si vemos un ángulo claro para avanzar.";
+            if (button) button.textContent = "Continuar";
           }, 900);
         });
       }
