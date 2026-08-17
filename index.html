@@ -17,19 +17,19 @@
       property="og:description"
       content="Investigamos personas estratégicas, abrimos conversaciones y registramos cada oportunidad hasta dejarla lista para avanzar."
     />
-    <meta property="og:image" content="https://bbtech.space/assets/linkedin-refresh-2026/bbtech-company-logo.png" />
+    <meta property="og:image" content="https://bbtech.space/assets/bbtech-logo-website.png" />
     <meta name="theme-color" content="#070416" />
-    <link rel="icon" href="assets/bbtech-favicon.png?v=bb-logo-2" type="image/png" sizes="512x512" />
+    <link rel="icon" href="assets/bbtech-favicon.png?v=linkedin-logo-1" type="image/png" sizes="512x512" />
     <link rel="icon" href="assets/bbtech-favicon.svg?v=bb-logo-2" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="assets/bbtech-favicon.png?v=bb-logo-2" />
+    <link rel="apple-touch-icon" href="assets/bbtech-favicon.png?v=linkedin-logo-1" />
     <link rel="preload" as="image" href="assets/marketing-barbi-global-hero.webp" type="image/webp" fetchpriority="high" />
-    <link rel="preload" as="image" href="assets/bbtech-logo-header.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=brand-indigo-contact-1" />
+    <link rel="preload" as="image" href="assets/bbtech-logo-website.png?v=linkedin-logo-1" type="image/png" />
+    <link rel="stylesheet" href="styles.css?v=linkedin-logo-1" />
   </head>
   <body>
     <header class="site-header">
       <a class="brand" href="#top" aria-label="BBTech inicio">
-        <img src="assets/bbtech-logo-header.svg" width="210" height="48" alt="BBTech" />
+        <img src="assets/bbtech-logo-website.png?v=linkedin-logo-1" width="800" height="800" alt="BBTech" />
       </a>
       <nav aria-label="Navegación principal">
         <a href="#contexto">Contexto</a>
@@ -39,6 +39,10 @@
         <a href="#planes">Oferta</a>
         <a href="#aplicar">Aplicar</a>
       </nav>
+      <div class="language-switcher" role="group" aria-label="Idioma">
+        <button type="button" data-lang-button="es" aria-pressed="true">ES</button>
+        <button type="button" data-lang-button="en" aria-pressed="false">EN</button>
+      </div>
     </header>
 
     <main id="top">
@@ -60,7 +64,7 @@
         <div class="hero-content">
           <p class="system-tag">BBTech.space</p>
           <p class="eyebrow">Prospección y relaciones B2B</p>
-          <h1 id="hero-title">Convertimos relaciones estratégicas en oportunidades B2B.</h1>
+          <h1 id="hero-title">Encontramos relaciones estratégicas y las convertimos en oportunidades B2B.</h1>
           <p class="hero-copy">
             Entendemos tu oferta, investigamos a las personas correctas, empezamos interacciones graduales,
             abrimos conversaciones y dejamos cada avance registrado para ventas, seguimiento y CRM.
@@ -456,7 +460,7 @@
           <div class="application-actions">
             <button class="button primary" type="submit" data-submit-button>Enviar solicitud</button>
           </div>
-          <p data-form-status>Tomamos pocos casos a la vez. Si no vemos encaje, preferimos decirlo claro antes de hacerte perder tiempo.</p>
+          <p data-form-status aria-live="polite"></p>
         </form>
         <iframe class="form-sink" name="application_sink" title="Estado de aplicación"></iframe>
       </section>
@@ -481,7 +485,7 @@
 
     <footer>
       <a class="footer-brand" href="#top" aria-label="BBTech inicio">
-        <img src="assets/bbtech-logo-header.svg" width="210" height="48" alt="BBTech" />
+        <img src="assets/bbtech-logo-website.png?v=linkedin-logo-1" width="800" height="800" alt="BBTech" />
       </a>
       <span>Prospección y relaciones comerciales para proyectos B2B.</span>
     </footer>
@@ -497,8 +501,8 @@
         applicationForm.addEventListener("submit", (event) => {
           if (callInterest && callCheckbox) {
             callInterest.value = callCheckbox.checked
-              ? callCheckbox.value
-              : "Prefiere que respondamos primero";
+              ? (window.BBTechI18n?.current === "en" ? "Yes, I want to be contacted to schedule a call" : callCheckbox.value)
+              : (window.BBTechI18n?.current === "en" ? "Prefers that we reply first" : "Prefiere que respondamos primero");
           }
           if (publicProfileField) {
             const linkedin = linkedinField ? linkedinField.value.trim() : "";
@@ -507,14 +511,258 @@
           }
           const status = applicationForm.querySelector("[data-form-status]");
           const button = applicationForm.querySelector("button[type='submit']");
-          if (button) button.textContent = "Enviando...";
+            if (button) button.textContent = window.BBTechI18n?.current === "en" ? "Sending..." : "Enviando...";
           window.setTimeout(() => {
             applicationForm.reset();
-            if (status) status.textContent = "Recibimos tu solicitud. Vamos a revisar tu perfil y responderte con una devolución clara: próximos pasos si vemos potencial, o una recomendación honesta si no es el momento.";
-            if (button) button.textContent = "Enviar solicitud";
+            if (status) {
+              status.textContent = window.BBTechI18n?.current === "en"
+                ? "We received your request. We will review your profile and reply with a clear next step: a concrete angle if we see potential, or an honest recommendation if now is not the right moment."
+                : "Recibimos tu solicitud. Vamos a revisar tu perfil y responderte con una devolución clara: próximos pasos si vemos potencial, o una recomendación honesta si no es el momento.";
+            }
+            if (button) button.textContent = window.BBTechI18n?.current === "en" ? "Send request" : "Enviar solicitud";
           }, 900);
         });
       }
+
+      const translations = {
+        en: {
+          title: "BBTech | B2B Opportunities",
+          description: "BBTech operates B2B prospecting, relationship and opportunity systems for teams that need real commercial conversations.",
+          keywords: "B2B prospecting, commercial relationships, opportunity generation, B2B sales, BBTech",
+          text: {
+            "Contexto": "Context",
+            "Servicio": "Service",
+            "Dashboard": "Dashboard",
+            "Equipo": "Team",
+            "Oferta": "Offer",
+            "Aplicar": "Apply",
+            "BBTech.space": "BBTech.space",
+            "Prospección y relaciones B2B": "B2B prospecting and relationships",
+            "Encontramos relaciones estratégicas y las convertimos en oportunidades B2B.": "We find strategic relationships and turn them into B2B opportunities.",
+            "Entendemos tu oferta, investigamos a las personas correctas, empezamos interacciones graduales, abrimos conversaciones y dejamos cada avance registrado para ventas, seguimiento y CRM.": "We understand your offer, research the right people, start gradual interactions, open conversations and keep every step organized for sales, follow-up and CRM.",
+            "Completar formulario": "Complete the form",
+            "Ver servicio": "View service",
+            "Mapeo": "Mapping",
+            "Conexión": "Connection",
+            "Seguimiento": "Follow-up",
+            "Oportunidades": "Opportunities",
+            "Muchos negocios premium tienen una oferta fuerte, pero una presencia digital que no refleja su nivel real.": "Many premium businesses have a strong offer, but a digital presence that does not reflect their real level.",
+            "Eso les hace perder autoridad, confianza y conversaciones estratégicas. LinkedIn puede ser un canal de posicionamiento, networking y generación de oportunidades, pero necesita criterio, seguimiento y una ejecución constante.": "That costs them authority, trust and strategic conversations. LinkedIn can become a positioning, networking and opportunity channel, but it needs judgment, follow-through and consistent execution.",
+            "Quiero evaluar mi cuenta": "I want my profile reviewed",
+            "Lo que hacemos": "What we do",
+            "Creamos y gestionamos un sistema comercial de relaciones, no una agenda de posts.": "We create and manage a commercial relationship system, not a posting calendar.",
+            "LinkedIn suele ser la puerta de entrada. El trabajo completo incluye investigación, perfilado, conexión gradual, enriquecimiento B2B, seguimiento, campañas de email y handoff ordenado al equipo comercial.": "LinkedIn is usually the entry point. The full work includes research, profiling, gradual connection, B2B enrichment, follow-up, email campaigns and an organized handoff to the commercial team.",
+            "Ver oferta fundadora": "View founder offer",
+            "Inteligencia comercial": "Commercial intelligence",
+            "Entendemos el negocio, el buyer, los mercados, las señales públicas y los perfiles que pueden convertirse en oportunidad.": "We understand the business, buyer, markets, public signals and profiles that can become opportunities.",
+            "Relación gradual": "Gradual relationship building",
+            "Comentamos, reaccionamos, conectamos y escribimos con contexto. La secuencia se siente natural porque hay criterio editorial detrás.": "We comment, react, connect and write with context. The sequence feels natural because there is editorial judgment behind it.",
+            "Funnel multicanal": "Multichannel funnel",
+            "Cuando corresponde, activamos email, llamadas o mensajería con consentimiento y trazabilidad para mover la relación hacia ventas.": "When it makes sense, we activate email, calls or messaging with consent and traceability to move the relationship toward sales.",
+            "Dashboard compartido": "Shared dashboard",
+            "El trabajo queda visible: actividad, métricas y oportunidades.": "The work stays visible: activity, metrics and opportunities.",
+            "Compartimos un dashboard para que veas qué se está haciendo: perfiles mapeados, conexiones, conversaciones, emails, próximos pasos, señales calificadas y oportunidades listas para CRM.": "We share a dashboard so you can see the work in motion: mapped profiles, connections, conversations, emails, next steps, qualified signals and opportunities ready for CRM.",
+            "Quiero una propuesta para mi cuenta": "I want a proposal for my profile",
+            "BBTech CRM": "BBTech CRM",
+            "Oportunidades activas": "Active opportunities",
+            "Semana 04": "Week 04",
+            "Perfiles mapeados": "Mapped profiles",
+            "32 priorizados": "32 prioritized",
+            "Conversaciones": "Conversations",
+            "14 con respuesta": "14 with replies",
+            "3 listas para llamada": "3 ready for a call",
+            "Nuevo lead": "New lead",
+            "Founder SaaS LatAm": "LatAm SaaS founder",
+            "Interés en expansión B2B": "Interested in B2B expansion",
+            "Revisar fit": "Review fit",
+            "Consultora premium": "Premium consultant",
+            "Necesita clientes enterprise": "Needs enterprise clients",
+            "Llamada sugerida": "Suggested call",
+            "Director comercial": "Commercial director",
+            "Pidió propuesta concreta": "Asked for a concrete proposal",
+            "18 interacciones registradas hoy": "18 interactions logged today",
+            "6 mensajes personalizados enviados": "6 personalized messages sent",
+            "3 próximos pasos preparados para CRM": "3 next steps prepared for CRM",
+            "Sobre nosotros": "About us",
+            "Un equipo que entiende negocios, relaciones y reputación digital.": "A team that understands business, relationships and digital reputation.",
+            "BBTech nace de una relación construida durante años entre personas que se conocieron en conferencias de negocios digitales, proyectos online y espacios donde se habla de crecimiento real: ventas, posicionamiento, adquisición de clientes, networking, tecnología y construcción de marca.": "BBTech comes from a relationship built over years between people who met across digital business conferences, online projects and spaces where real growth is discussed: sales, positioning, client acquisition, networking, technology and brand building.",
+            "Hace más de 7 años empezamos a cruzarnos en distintos proyectos, colaborar, compartir aprendizajes y construir una forma de trabajar basada en algo simple: entender cómo piensan las personas antes de intentar venderles algo.": "More than 7 years ago we started crossing paths across different projects, collaborating, sharing lessons and building a way of working around one simple idea: understand how people think before trying to sell them anything.",
+            "En ese camino desarrollamos negocios digitales, acompañamos marcas personales, trabajamos con empresas, founders, perfiles comerciales y proyectos B2B. Aprendimos qué hace que una cuenta transmita autoridad, qué tipo de mensaje abre una conversación, cuándo insistir, cuándo esperar, cómo sostener una relación y cómo convertir un primer contacto frío en una oportunidad real.": "Along the way we developed digital businesses, supported personal brands and worked with companies, founders, commercial profiles and B2B projects. We learned what makes an account signal authority, what type of message opens a conversation, when to insist, when to wait, how to sustain a relationship and how to turn a cold first touch into a real opportunity.",
+            "No creemos en el contacto masivo ni en los mensajes genéricos. Nuestro trabajo empieza estudiando el negocio, el tono de voz, el mercado, el tipo de cliente que se quiere atraer y la forma en la que esa persona necesita ser percibida.": "We do not believe in mass contact or generic messages. Our work starts by studying the business, voice, market, type of client to attract and the way that person needs to be perceived.",
+            "Quiero que revisen mi caso": "I want my case reviewed",
+            "Confidencialidad absoluta": "Absolute confidentiality",
+            "Tu cuenta es reputación, relaciones e información sensible.": "Your account is reputation, relationships and sensitive information.",
+            "No compartimos información privada, conversaciones, nombres, métricas ni resultados sin autorización. Si mostramos casos, lo hacemos de forma anónima o con datos recreados para proteger a la persona y al negocio.": "We do not share private information, conversations, names, metrics or results without authorization. If we show cases, we do it anonymously or with recreated data to protect the person and the business.",
+            "Roles del equipo": "Team roles",
+            "Estrategia": "Strategy",
+            "Definimos el foco comercial, el tipo de oportunidad que buscamos y el criterio para priorizar contactos.": "We define the commercial focus, the type of opportunity we are looking for and the criteria for prioritizing contacts.",
+            "Investigación": "Research",
+            "Detectamos regiones, empresas, decisores, intereses, señales públicas y motivos reales para iniciar contacto.": "We detect regions, companies, decision-makers, interests, public signals and real reasons to start contact.",
+            "Copywriting": "Copywriting",
+            "Adaptamos tu tono de voz, mejoramos la claridad del mensaje y preparamos acercamientos naturales.": "We adapt your tone of voice, improve message clarity and prepare natural approaches.",
+            "Gestión de relaciones": "Relationship management",
+            "Iniciamos interacciones, ordenamos conversaciones, coordinamos seguimientos y cuidamos el tono de cada contacto.": "We start interactions, organize conversations, coordinate follow-ups and protect the tone of each touchpoint.",
+            "Análisis": "Analysis",
+            "Revisamos métricas, avances, respuestas, conexiones y oportunidades para ajustar con datos reales.": "We review metrics, progress, replies, connections and opportunities to adjust with real data.",
+            "Método": "Method",
+            "Primero entendemos el negocio. Después ponemos la máquina comercial en movimiento.": "First we understand the business. Then we put the commercial engine in motion.",
+            "El trabajo empieza con preguntas clave: qué vendés, a quién querés llegar, qué clientes querés encontrar, qué objeciones aparecen y qué tipo de oportunidades vale la pena abrir. Después ejecutamos con criterio para que no tengas que pensar a quién contactar, cómo escribir o cuándo hacer seguimiento.": "The work starts with key questions: what you sell, who you want to reach, what clients you want to find, what objections appear and what opportunities are worth opening. Then we execute with judgment so you do not have to think about who to contact, how to write or when to follow up.",
+            "Enviar datos del proyecto": "Send project details",
+            "Filtro": "Filter",
+            "Revisamos si la cuenta, la oferta y el mercado tienen sentido para una gestión premium.": "We review whether the account, offer and market make sense for premium management.",
+            "Mapa": "Map",
+            "Definimos regiones, segmentos, perfiles relevantes y criterios para priorizar oportunidades.": "We define regions, segments, relevant profiles and criteria for prioritizing opportunities.",
+            "Activación": "Activation",
+            "Interactuamos, conectamos, abrimos conversaciones, enriquecemos datos B2B y activamos canales según el contexto.": "We interact, connect, open conversations, enrich B2B data and activate channels based on context.",
+            "Transparencia": "Transparency",
+            "Compartimos dashboard, próximos pasos y exportación para CRM para que el cliente vea el avance real.": "We share the dashboard, next steps and CRM export so the client can see real progress.",
+            "Oferta fundadora": "Founder offer",
+            "Precios introductorios para construir casos fuertes con los primeros clientes correctos.": "Introductory pricing to build strong cases with the first right clients.",
+            "Tenemos capacidad operativa disponible y queremos ponerla a trabajar en proyectos con potencial real. Por eso abrimos cupos fundadores: mucho valor, seguimiento cercano y precios más bajos que la tarifa final.": "We have available operating capacity and want to put it to work on projects with real potential. That is why we opened founder slots: strong value, close follow-up and lower pricing than the final rate.",
+            "Completar formulario de aplicación": "Complete application form",
+            "Cupos fundadores": "Founder slots",
+            "Precio introductorio por los primeros 90 días. A cambio, buscamos feedback honesto, permiso para usar resultados anónimos y casos medibles.": "Introductory pricing for the first 90 days. In return, we look for honest feedback, permission to use anonymous results and measurable cases.",
+            "Impulso Inicial": "Initial Momentum",
+            "USD 197": "USD 197",
+            "/mes fundador": "/founder month",
+            "Para ordenar la presencia, validar el mercado y empezar a abrir señales sin improvisar.": "For organizing presence, validating the market and starting to open signals without improvising.",
+            "Call inicial para entender negocio, oferta, buyer y mercado objetivo": "Initial call to understand business, offer, buyer and target market",
+            "Optimización base del perfil para que comunique mejor la propuesta": "Basic profile optimization so the proposal is clearer",
+            "Mapa inicial de perfiles relevantes por segmento y región": "Initial map of relevant profiles by segment and region",
+            "4 posts mensuales para sostener autoridad y presencia": "4 monthly posts to sustain authority and presence",
+            "Hasta 5 conversaciones iniciadas por día hábil": "Up to 5 conversations started per business day",
+            "Dashboard básico con actividad, contenido y evolución": "Basic dashboard with activity, content and progress",
+            "Aplicar a Impulso": "Apply for Momentum",
+            "Relaciones Comerciales": "Commercial Relationships",
+            "USD 397": "USD 397",
+            "Para construir autoridad, generar confianza y abrir conversaciones comerciales con seguimiento real.": "For building authority, generating trust and opening commercial conversations with real follow-up.",
+            "Todo lo incluido en Impulso Inicial": "Everything included in Initial Momentum",
+            "Perfilado de empresas, decisores, señales públicas e intereses relevantes": "Profiling of companies, decision-makers, public signals and relevant interests",
+            "8 posts mensuales alineados al posicionamiento comercial": "8 monthly posts aligned with commercial positioning",
+            "Hasta 10 conversaciones iniciadas por día hábil con contexto real": "Up to 10 conversations started per business day with real context",
+            "Secuencia gradual de interacción antes y después de conectar": "Gradual interaction sequence before and after connecting",
+            "Seguimiento de respuestas, objeciones, señales y próximos pasos": "Follow-up of replies, objections, signals and next steps",
+            "Dashboard con contenido, conexiones, conversaciones y oportunidades": "Dashboard with content, connections, conversations and opportunities",
+            "Call quincenal para ajustar foco comercial": "Biweekly call to adjust commercial focus",
+            "Aplicar a Relaciones": "Apply for Relationships",
+            "Oportunidades B2B": "B2B Opportunities",
+            "USD 797": "USD 797",
+            "Para delegar la operación completa de prospección, seguimiento y oportunidades B2B.": "For delegating the full operation of B2B prospecting, follow-up and opportunities.",
+            "Todo lo incluido en Relaciones Comerciales": "Everything included in Commercial Relationships",
+            "16 posts mensuales como soporte de autoridad y presencia ejecutiva": "16 monthly posts to support authority and executive presence",
+            "1 artículo largo mensual para posicionamiento profundo": "1 long-form monthly article for deeper positioning",
+            "Hasta 30 conversaciones iniciadas por día hábil con criterio estratégico": "Up to 30 conversations started per business day with strategic judgment",
+            "Enriquecimiento B2B de leads: empresa, rol, email profesional y señales públicas": "B2B lead enrichment: company, role, professional email and public signals",
+            "Campañas de email conectadas a la cuenta del cliente cuando el canal aplica": "Email campaigns connected to the client account when the channel applies",
+            "Preparación de WhatsApp, llamadas o mensajería solo con contexto válido y permiso": "Preparation of WhatsApp, calls or messaging only with valid context and permission",
+            "Dashboard completo con actividad, métricas, conversaciones, leads y oportunidades": "Full dashboard with activity, metrics, conversations, leads and opportunities",
+            "Exportación ordenada para CRM y handoff comercial": "Organized CRM export and commercial handoff",
+            "Call semanal durante el primer mes para acelerar aprendizaje y confianza": "Weekly call during the first month to accelerate learning and trust",
+            "Aplicar a Oportunidades": "Apply for Opportunities",
+            "Por qué ahora": "Why now",
+            "Queremos reputación, casos reales y relaciones largas, no vender humo.": "We want reputation, real cases and long-term relationships, not empty promises.",
+            "Equipo visible": "Visible team",
+            "Antes de empezar, hablamos con cada cliente, entendemos el negocio y mostramos cómo vamos a trabajar la cuenta.": "Before starting, we speak with each client, understand the business and show how we will work the account.",
+            "Proceso trazable": "Traceable process",
+            "Cada contacto, mensaje, respuesta y próximo paso queda registrado para que el cliente vea el trabajo real.": "Every contact, message, reply and next step is logged so the client can see the real work.",
+            "Datos con criterio": "Data with judgment",
+            "Usamos investigación y enriquecimiento B2B con cuidado: nada de spam masivo ni promesas invasivas.": "We use research and B2B enrichment carefully: no mass spam and no invasive promises.",
+            "Casos fundadores": "Founder cases",
+            "Los primeros clientes reciben más cercanía porque queremos construir evidencia, confianza y resultados medibles.": "The first clients receive closer support because we want to build evidence, trust and measurable results.",
+            "Para quién funciona mejor": "Who it works best for",
+            "Funciona mejor cuando ya existe una oferta seria y una conversación puede convertirse en oportunidad.": "It works best when there is already a solid offer and a conversation can become an opportunity.",
+            "Founders, ejecutivos, consultores, firmas profesionales, SaaS, agencias y startups.": "Founders, executives, consultants, professional firms, SaaS companies, agencies and startups.",
+            "Negocios con servicios, tecnología o soluciones B2B de ticket medio o alto.": "Businesses with services, technology or B2B solutions at medium or high ticket levels.",
+            "Proyectos que necesitan clientes, inversores, alianzas o autoridad en su mercado.": "Projects that need clients, investors, partnerships or authority in their market.",
+            "Personas que quieren delegar LinkedIn sin perder criterio, visibilidad ni control.": "People who want to delegate LinkedIn without losing judgment, visibility or control.",
+            "Ver si mi caso aplica": "See if my case applies",
+            "Aplicación": "Application",
+            "Primero aplicación. Después, si hay fit, llamada de claridad.": "First application. Then, if there is fit, a clarity call.",
+            "Revisamos tu perfil, tu oferta y el tipo de oportunidades que querés abrir. Si vemos un ángulo claro para trabajar con criterio, avanzamos con una llamada breve y una propuesta concreta.": "We review your profile, offer and the type of opportunities you want to open. If we see a clear angle to work with judgment, we move forward with a short call and a concrete proposal.",
+            "Evaluación inicial": "Initial evaluation",
+            "¿Tu perfil está listo para abrir conversaciones que valen la pena?": "Is your profile ready to open conversations worth having?",
+            "Dejanos tus datos mínimos. Nosotros revisamos tu perfil y tu mercado antes de proponerte cualquier acción. Si vemos potencial real, te respondemos con próximos pasos.": "Leave us the minimum details. We review your profile and market before proposing any action. If we see real potential, we reply with next steps.",
+            "Nombre": "Name",
+            "Email": "Email",
+            "LinkedIn": "LinkedIn",
+            "Website": "Website",
+            "opcional": "optional",
+            "También quiero que me contacten para coordinar una llamada si ven potencial.": "I also want to be contacted to coordinate a call if you see potential.",
+            "Enviar solicitud": "Send request",
+            "Contacto directo": "Direct contact",
+            "Si preferís escribirnos directo, estamos acá.": "If you prefer to write directly, we are here.",
+            "WhatsApp": "WhatsApp",
+            "Prospección y relaciones comerciales para proyectos B2B.": "Prospecting and commercial relationships for B2B projects."
+          },
+          placeholders: {
+            "https://linkedin.com/in/...": "https://linkedin.com/in/...",
+            "https://...": "https://..."
+          }
+        }
+      };
+
+      const baseTextNodes = new Map();
+      const ignoredTranslationTags = new Set(["SCRIPT", "STYLE", "IFRAME", "NOSCRIPT"]);
+      function collectTextNodes(root = document.body) {
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+          acceptNode(node) {
+            if (!node.textContent.trim()) return NodeFilter.FILTER_REJECT;
+            const parent = node.parentElement;
+            if (!parent || ignoredTranslationTags.has(parent.tagName)) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
+        let node = walker.nextNode();
+        while (node) {
+          if (!baseTextNodes.has(node)) baseTextNodes.set(node, node.textContent);
+          node = walker.nextNode();
+        }
+      }
+
+      function translateNodeText(node, lang) {
+        const base = baseTextNodes.get(node) || node.textContent;
+        if (lang === "es") {
+          node.textContent = base;
+          return;
+        }
+        const trimmed = base.trim().replace(/\s+/g, " ");
+        const translated = translations[lang]?.text?.[trimmed];
+        if (!translated) {
+          node.textContent = base;
+          return;
+        }
+        const leading = base.match(/^\s*/)?.[0] || "";
+        const trailing = base.match(/\s*$/)?.[0] || "";
+        node.textContent = `${leading}${translated}${trailing}`;
+      }
+
+      function setLanguage(lang) {
+        const nextLang = translations[lang] ? lang : "es";
+        collectTextNodes();
+        baseTextNodes.forEach((_, node) => translateNodeText(node, nextLang));
+        document.documentElement.lang = nextLang;
+        document.title = nextLang === "en" ? translations.en.title : "BBTech | Oportunidades B2B";
+        const metaDescription = document.querySelector("meta[name='description']");
+        const metaKeywords = document.querySelector("meta[name='keywords']");
+        const ogTitle = document.querySelector("meta[property='og:title']");
+        const ogDescription = document.querySelector("meta[property='og:description']");
+        if (metaDescription) metaDescription.content = nextLang === "en" ? translations.en.description : "BBTech opera sistemas de prospección, relaciones y oportunidades B2B para equipos que necesitan conversaciones comerciales reales.";
+        if (metaKeywords) metaKeywords.content = nextLang === "en" ? translations.en.keywords : "prospección B2B, relaciones comerciales, generación de oportunidades, ventas B2B, BBTech";
+        if (ogTitle) ogTitle.content = nextLang === "en" ? translations.en.title : "BBTech | Oportunidades B2B";
+        if (ogDescription) ogDescription.content = nextLang === "en" ? "We research strategic people, open conversations and log every opportunity until it is ready to move forward." : "Investigamos personas estratégicas, abrimos conversaciones y registramos cada oportunidad hasta dejarla lista para avanzar.";
+        document.querySelectorAll("[data-lang-button]").forEach((button) => {
+          const isActive = button.dataset.langButton === nextLang;
+          button.setAttribute("aria-pressed", String(isActive));
+        });
+        window.localStorage.setItem("bbtech-language", nextLang);
+        window.BBTechI18n = { current: nextLang, setLanguage };
+      }
+
+      document.querySelectorAll("[data-lang-button]").forEach((button) => {
+        button.addEventListener("click", () => setLanguage(button.dataset.langButton));
+      });
+
+      setLanguage(window.localStorage.getItem("bbtech-language") || "es");
     </script>
   </body>
 </html>
